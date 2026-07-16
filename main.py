@@ -9,4 +9,3 @@ a = tuple(a)
 
 print(a)
 
-a.__(3)
