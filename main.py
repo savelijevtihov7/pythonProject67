@@ -15,9 +15,17 @@
 #             c += 1
 #
 # print(indicies)
-my_dict = {}
-names = ['Vasya', 'Petya', 'Gulia']
-ages = [12, 13, 47]
-cities = ['Moscow', 'Bryansk', 'Berlin']
-my_dict.update({'names': names, 'ages': ages, 'cities': cities})
-print(my_dict)
+
+users = {}
+count_users = int(input('Введите количество пользователей'))
+for i in range(count_users):
+    users.setdefault('Names', []).append(input('Введите имя пользователя'))
+    users.setdefault('Ages', []).append(int(input('Введите возраст пользователя')))
+    users.setdefault('Cities', []).append(input('Введите город пользователя'))
+
+print(users)
+
+def avg_age(dict):
+    return (sum(dict['Ages']) / len(dict['Names']))
+
+print(avg_age(users))
