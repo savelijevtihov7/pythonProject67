@@ -44,12 +44,41 @@ class Pet:
     def say_hello(self):
         print(f"Привет! Меня зовут {self.name}, я чувствую себя отлично")
 
-barcik = Pet("Барсик", 50)
+class Cat(Pet):
 
-sharik = Pet("Шарик", 80)
+    def sleep(self):
+        print(f"{self.name} свернулся клубочком и спит")
 
-barcik.eat()
-sharik.eat()
-barcik.eat()
+class  Dog(Pet):
 
-sharik.say_hello()
+    def wag_tail(self):
+        print(f"{self.name} радостно виляет хвостом")
+
+
+my_cat = Cat("Мурзик", 30)
+my_dog = Dog("Бим", 60)
+
+my_cat.eat()
+my_cat.sleep()
+
+my_dog.eat()
+my_dog.wag_tail()
+
+
+# barcik = Pet("Барсик", 50)
+#
+# sharik = Pet("Шарик", 80)
+#
+# barcik.eat()
+# sharik.eat()
+# barcik.eat()
+#
+# sharik.say_hello()
+
+pets = [
+Cat("Антоша", 70), Dog("Vasiliy", 0)
+]
+
+for pet in pets:
+    result = pet.say_hello()
+    print(result)
