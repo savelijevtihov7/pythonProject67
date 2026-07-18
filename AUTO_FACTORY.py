@@ -4,10 +4,14 @@ class BankAccount:
         self.balance = balance
         self.history = []
     def deposit(self,amount):
+        if amount <= 0:
+            return 'Сумма должна быть положительной'
         self.balance += amount
         self.history.append(f"Пополнение +{amount}. Баланс: {self.balance + amount}")
         return f"Клиент {self.owner} положил {amount} денег на счет, теперь его баланс составляет {self.balance}"
     def withdraw(self,amount):
+        if amount <= 0:
+            return 'Сумма должна быть положительной'
         self.balance -= amount
         self.history.append(f"Снятие денег -{amount}. Баланс: {self.balance - amount}")
         return f"Клиент {self.owner} снял {amount} денег со счета, теперь его баланс составляет {self.balance}"
@@ -16,16 +20,24 @@ class BankAccount:
     def money_transfer(self,other_bank_account,amount):
         if self.balance >= amount:
             self.balance -= amount
+            other_bank_account.balance += amount
             self.history.append(f"Перевод {other_bank_account.owner} прошел успешно. Ваш баланс составляет: {self.balance - amount}")
+            other_bank_account.history.append(f"Перевод от {self.owner} в размере {amount}. Ваш баланс составляет: {other_bank_account.balance + amount}")
             return f"{self.owner} перевел деньги {other_bank_account.owner} в размере {amount}"
         else:
             self.history.append(f"Перевод {other_bank_account.owner} не удался. Недостаточно средств")
             return 'Недостаточно средств'
+    def show_history(self):
+        ba = []
+        for operation in self.history:
+            ba.append(operation)
+        return ba
 
 Ivan = BankAccount('Иван', 1_200_000)
 Saveliy = BankAccount('Савелий', 120_000_000)
 
-print(Saveliy.deposit(100_000))
+print(Saveliy.deposit(100))
 print(Saveliy.money_transfer(Ivan,1_0000000000000_00000000000))
 print(Saveliy.money_transfer(Ivan, 100_000))
-print(Saveliy.history)
+print(Saveliy.show_history())
+print(Ivan.show_history())
