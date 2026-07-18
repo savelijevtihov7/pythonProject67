@@ -1,44 +1,31 @@
-class AUTO:
-
-    def __init__(self,name,max_speed,horse_power,cost):
-        self.name = name
-        self.max_speed = max_speed
-        self.horse_power = horse_power
-        self.cost = cost
-
-    def IsItPowered(self):
-        if self.horse_power > 299:
-            return f"Автомобиль {self.name} будет подвержен повышенному налогооблажению из-за высокой мощности"
+class BankAccount:
+    def __init__(self,owner,balance):
+        self.owner = owner
+        self.balance = balance
+        self.history = []
+    def deposit(self,amount):
+        self.balance += amount
+        self.history.append(f"Пополнение +{amount}. Баланс: {self.balance + amount}")
+        return f"Клиент {self.owner} положил {amount} денег на счет, теперь его баланс составляет {self.balance}"
+    def withdraw(self,amount):
+        self.balance -= amount
+        self.history.append(f"Снятие денег -{amount}. Баланс: {self.balance - amount}")
+        return f"Клиент {self.owner} снял {amount} денег со счета, теперь его баланс составляет {self.balance}"
+    def show_balance(self):
+        return f"Баланс клиента {self.owner} составляет {self.balance}"
+    def money_transfer(self,other_bank_account,amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            self.history.append(f"Перевод {other_bank_account.owner} прошел успешно. Ваш баланс составляет: {self.balance - amount}")
+            return f"{self.owner} перевел деньги {other_bank_account.owner} в размере {amount}"
         else:
-            return f"Автомобиль {self.name} повышенному налогооблажению не подвержен"
+            self.history.append(f"Перевод {other_bank_account.owner} не удался. Недостаточно средств")
+            return 'Недостаточно средств'
 
-    def IsItExpensive(self):
-        if self.cost > 3_000_000:
-            return f"В связи с высокой стоимостью автомобиля {self.name}: {self.cost}, он будет ввезен с большой наценкой"
-        else:
-            return f"Наценка на автомобиль {self.name} оптимальна для ввоза в РФ"
+Ivan = BankAccount('Иван', 1_200_000)
+Saveliy = BankAccount('Савелий', 120_000_000)
 
-    def IsItFast(self):
-        if self.max_speed > 260:
-            return f"Автомобиль {self.name} является суперкаром"
-        else:
-            return f"Автомобиль {self.name} является автомобилем бизнес класса"
-
-class BMW(AUTO):
-    def CAR_RATING(self):
-        return f"Автомобиль {self.name} разгоняется до 100 быстрее конкурентов, но обладает меньшей устойчивостью при прохождении поворотов"
-
-class MERCEDES(AUTO):
-    def CAR_RATING(self):
-        return f"Автомобиль {self.name} обладает наименьшей разгонной динамикой среди конкурентов, но превосходит их по уровню комфорта"
-
-
-First_Car = BMW("BMW M5 G90", 290, 801, 21_000_000)
-Second_Car = MERCEDES('MERCEDES E63 AMG', 276, 630, 12_000_000)
-
-print(First_Car.CAR_RATING())
-print(Second_Car.CAR_RATING())
-print(First_Car.IsItFast())
-print(Second_Car.IsItFast())
-print(First_Car.IsItPowered())
-print(Second_Car.IsItPowered())
+print(Saveliy.deposit(100_000))
+print(Saveliy.money_transfer(Ivan,1_0000000000000_00000000000))
+print(Saveliy.money_transfer(Ivan, 100_000))
+print(Saveliy.history)
